@@ -1,0 +1,19 @@
+title: ""
+subtitle: ""
+name:  ""
+author: ""
+email:  ""
+
+articles:
+  dir: "app/articles"
+
+public:
+  dir: "public"
+
+views:
+  dir: "app/views"
+  default: "home"
+
+akismet:
+  key: ""
+  url: ""

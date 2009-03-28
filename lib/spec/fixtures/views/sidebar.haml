@@ -1,0 +1,21 @@
+#about
+  %h2 About
+  %p
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+    labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco
+    laboris nisi ut aliquip ex ea commodo consequat.
+%h2 Recent Posts
+%ul
+  -Aerial::Article.recent.each do |article|
+    %li
+      %a{:href => "#{article.permalink}"}=article.title
+%h2 Categories
+%ul
+  -Aerial::Article.tags.each do |tag|
+    %li
+      %a{:href => "/tags/#{tag}"}=tag
+%h2 Archives
+%ul
+  -Aerial::Article.archives.each do |archive|
+    %li
+      %a{:href => "/archives/#{archive[0][0]}"}="#{archive[0][1]} (#{archive[1]})"

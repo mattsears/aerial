@@ -1,0 +1,15 @@
+!!! XML
+%rss{"version" => "2.0"}
+  %channel
+    %title= "#{Aerial.config.title}"
+    %link= "http://#{hostname}"
+    %language= "en-us"
+    %ttl= "40"
+    %description= "#{Aerial.config.subtitle}"
+    - @articles.each do |article|
+      %item
+        %title= article.title
+        %link= full_hostname(article.permalink)
+        %description= article.body_html
+        %pubDate= article.published_at
+        %guid{"isPermaLink" => "false"}= article.id
