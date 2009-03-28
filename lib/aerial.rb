@@ -10,11 +10,6 @@ require 'sinatra'
 require 'rdiscount'
 require 'aerial/base'
 
-# Add caching to Sinatra
-class Sinatra::Default
-  include Cacheable
-end
-
 before do
   # kill trailing slashes for all requests except '/'
   request.env['PATH_INFO'].gsub!(/\/$/, '') if request.env['PATH_INFO'] != '/'
@@ -29,6 +24,7 @@ end
 # Helpers
 helpers do
   include Rack::Utils
+  include Sinatra::Cache::Helpers
   include Aerial::Helper
   alias_method :h, :escape_html
 end
@@ -98,6 +94,6 @@ post '/article/:id/comments' do
   }))
 
   @article.comments << comment.save(@article.archive_name)
-  expire_cache( @article.permalink )
+  cache_expire( @article.permalink )
   status 204
 end
