@@ -21,7 +21,7 @@ namespace :spec do
     t.rcov = true
     t.rcov_dir = 'coverage'
     t.rcov_opts = ['--exclude',
-                   "lib/spec.rb,lib/spec/runner.rb,spec\/spec,bin\/spec,examples,\/gems,\/Library\/Ruby,\.autotest,#{ENV['GEM_HOME']}"]
+                   "lib/spec.rb,spec\/spec,bin\/spec,examples,\.autotest,#{ENV['GEM_HOME']}"]
   end
 end
 
@@ -30,6 +30,11 @@ task :boostrap do
   Rake::Task['setup:articles_directory'].invoke
   Rake::Task['setup:views_directory'].invoke
   Rake::Task['setup:public_directory'].invoke
+end
+
+desc 'Run Aerial in development mode'
+task :run do
+  exec "ruby lib/aerial.rb"
 end
 
 namespace :setup do
@@ -66,12 +71,6 @@ namespace :setup do
                                    'views'),
                    Aerial.config.views.dir )
   end
-
-end
-
-desc 'Run Aerial in development mode'
-task :run do
-  exec "ruby lib/aerial.rb"
 end
 
 # Cucumber setup

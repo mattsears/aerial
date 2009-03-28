@@ -27,7 +27,7 @@ module Sinatra
       #  TODO:: implement the opts={} hash functionality. What other options are needed?
       #
       def cache(content, opts={})
-        return content unless options.cache_enabled
+        return content unless options.respond_to?("cache_enabled") && options.cache_enabled
 
         unless content.nil?
           content = "#{content}\n#{page_cached_timestamp}"
@@ -51,7 +51,7 @@ module Sinatra
       #
       #  TODO:: implement the options={} hash functionality. What options are really needed ?
       def cache_expire(path = nil, opts={})
-        return unless options.cache_enabled
+        return unless options.respond_to?("cache_enabled") && options.cache_enabled
 
         path = (path.nil?) ? cache_page_path(request.path_info) : cache_page_path(path)
         if File.exist?(path)
