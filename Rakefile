@@ -26,10 +26,11 @@ namespace :spec do
 end
 
 desc "Setup the directory structure"
-task :boostrap do
+task :bootstrap do
   Rake::Task['setup:articles_directory'].invoke
   Rake::Task['setup:views_directory'].invoke
   Rake::Task['setup:public_directory'].invoke
+  Rake::Task['run'].invoke
 end
 
 desc 'Run Aerial in development mode'
@@ -42,33 +43,24 @@ namespace :setup do
   desc "Copy over a sample article"
   task :articles_directory do
     puts "* Creating article directory in " + Aerial.config.views.dir
+    article_dir = File.join(AERIAL_ROOT, 'lib','spec','fixtures',
+                            'articles', 'sample-article')
     FileUtils.mkdir_p( Aerial.config.articles.dir )
-    FileUtils.cp_r(File.join(AERIAL_ROOT,
-                               'lib',
-                                 'spec',
-                                   'fixtures',
-                                     'articles',
-                                       'test-article-one'),
-                   Aerial.config.articles.dir )
+    FileUtils.cp_r(article_dir, Aerial.config.articles.dir )
+    Aerial::Git.commit(Aerial.config.articles.dir, "Initial import of first article")
   end
 
   task :public_directory do
     puts "* Creating public directory in " + Aerial.config.public.dir
-    FileUtils.cp_r(File.join(AERIAL_ROOT,
-                               'lib',
-                                 'spec',
-                                   'fixtures',
-                                     'public'),
+    FileUtils.cp_r(File.join(AERIAL_ROOT, 'lib', 'spec',
+                             'fixtures', 'public'),
                    Aerial.config.public.dir )
   end
 
   task :views_directory do
     puts "* Creating views directory in " + Aerial.config.views.dir
-    FileUtils.cp_r(File.join(AERIAL_ROOT,
-                             'lib',
-                               'spec',
-                                 'fixtures',
-                                   'views'),
+    FileUtils.cp_r(File.join(AERIAL_ROOT, 'lib', 'spec',
+                             'fixtures',  'views'),
                    Aerial.config.views.dir )
   end
 end
