@@ -165,7 +165,7 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
     end
 
     it "should contain more than one Article" do
-      @articles.size.should == 3
+      @articles.size.should == 4
     end
 
     it "should contain a comments array even if empty" do
@@ -192,7 +192,7 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
     end
 
     it "should contain more than one Article" do
-      @articles.size.should == 2
+      @articles.size.should == 3
     end
 
     it "should include articles with a specific task" do
@@ -242,7 +242,7 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
     end
 
     it "should return a list of publication dates" do
-      @archives.should == {["2009/01", "January 2009"]=>1, ["2009/12", "December 2009"]=>2}
+      @archives.should == {["2009/01", "January 2009"]=>2, ["2009/12", "December 2009"]=>2}
     end
 
   end
