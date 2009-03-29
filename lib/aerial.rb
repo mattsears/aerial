@@ -31,6 +31,7 @@ end
 
 # Homepage
 get '/' do
+  @articles = Aerial::Article.recent(:limit => 10)
   cache haml(Aerial.config.views.default.to_sym)
 end
 
