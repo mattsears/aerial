@@ -4,8 +4,8 @@ module Aerial
   class Comment < Content
 
     attr_reader   :id,           :permalink, :article,      :spam,       :file_path
-    attr_accessor :archive_name, :spam,      :published_at, :name,
-                  :email,        :homepage,  :user_ip,      :user_agent, :referrer
+    attr_accessor :archive_name, :spam,      :published_at, :name,       :referrer,
+                  :email,        :homepage,  :user_ip,      :user_agent, :file_name
 
     def initialize(atts = {})
       super
@@ -98,11 +98,11 @@ module Aerial
     # =============================================================================================
 
     # Create a new Comment instance with data from the given file
-    def self.extract_comment_from(data, options)
+    def self.extract_comment_from(data, options = {})
       comment_file          = data.to_s
-      comment               = Hash.new
+      comment               = options
       comment[:id]          = self.extract_header("id", comment_file)
-      comment[:user_ip]          = self.extract_header("ip", comment_file)
+      comment[:user_ip]     = self.extract_header("ip", comment_file)
       comment[:user_agent]  = self.extract_header("user-agent", comment_file)
       comment[:referrer]    = self.extract_header("referrer", comment_file)
       comment[:permalink]   = self.extract_header("permalink", comment_file)
