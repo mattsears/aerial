@@ -1,5 +1,3 @@
-require 'date'
-
 module Aerial
 
   class Article < Content
@@ -200,7 +198,7 @@ module Aerial
           attributes[:archive_name] = tree.name
           attributes[:file_name] = archive.name
         elsif archive.name =~ /comment/
-          comments << Comment.open(archive.data, {})
+          comments << Comment.open(archive.data, :file_name => archive.name)
         end
       end
       return Article.new(attributes.merge(:comments => comments)) if attributes
@@ -240,5 +238,4 @@ module Aerial
     end
 
   end
-
 end
