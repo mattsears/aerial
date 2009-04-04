@@ -22,7 +22,7 @@ describe 'comment' do
     before(:each) do
       @article = Article.with_name("test-article-two")
       @comments = @article.comments
-      @comment = @article.comments.first
+      @comment = @comments.find{ |c| c.file_name == "test-comment.comment"}
     end
 
     it "should be an instance of an array" do
@@ -35,6 +35,10 @@ describe 'comment' do
 
     it "should assign an id to the comment" do
       @comment.object_id.should_not be_nil
+    end
+
+    it "should assign a file name of the comment" do
+      @comment.file_name.should == "test-comment.comment"
     end
 
     it "should assign an author of the comment" do
@@ -64,6 +68,18 @@ describe 'comment' do
     it "should format the string version of the comment" do
       comment = Comment.new(:author => "author", :email => "test@test.com")
       comment.to_s.should == "Author: author \nPublished: #{comment.published_at} \nEmail: test@test.com \n"
+    end
+
+    describe "without a homepage field" do
+
+      before do
+        @comment = @comments.find{ |c| c.file_name == "comment-missing-fields.comment"}
+      end
+
+      it "should leave the homepage field blank" do
+        @comment.homepage.should be_blank
+      end
+
     end
 
   end

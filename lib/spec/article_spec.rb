@@ -270,7 +270,7 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
     end
 
     it "should have comments attached to the article" do
-      @article_two.comments.size.should == 1
+      @article_two.comments.size.should == 2
     end
 
     it "should have a valid comment" do
