@@ -7,6 +7,8 @@ require 'rubygems'
 require 'grit'
 require 'yaml'
 require 'sinatra'
+require 'haml'
+require 'sass'
 require 'rdiscount'
 require 'aerial/base'
 
