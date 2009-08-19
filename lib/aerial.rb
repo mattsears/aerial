@@ -100,3 +100,8 @@ post '/article/:id/comments' do
   cache_expire( @article.permalink )
   status 204
 end
+
+not_found do
+  @content_for_sidebar = partial(:sidebar)
+  cache haml(:not_found)
+end
