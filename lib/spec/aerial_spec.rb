@@ -145,7 +145,7 @@ describe 'main aerial application' do
   end
 
 
-  describe "calling /arhives" do
+  describe "calling /archives" do
     before do
       @article = Article.new(:title        => "Test Article",
                              :body         => "Test Content",
