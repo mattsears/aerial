@@ -21,7 +21,7 @@ namespace :spec do
     t.rcov = true
     t.rcov_dir = 'coverage'
     t.rcov_opts = ['--exclude',
-                   "lib/spec.rb,spec\/spec,bin\/spec,examples,\.autotest,#{ENV['GEM_HOME']}"]
+                   "lib/spec.rb,spec\/spec,bin\/spec,examples,\.autotest,#{Gem.path.join(',')}"]
   end
 end
 
