@@ -44,7 +44,7 @@ namespace :setup do
   task :articles_directory do
     puts "* Creating article directory in " + Aerial.config.views.dir
     article_dir = File.join(AERIAL_ROOT, 'lib','spec','fixtures',
-                            'articles', 'sample-article')
+                            'articles', 'congratulations-aerial-is-configured-correctly')
     FileUtils.mkdir_p( Aerial.config.articles.dir )
     FileUtils.cp_r(article_dir, Aerial.config.articles.dir )
     Aerial::Git.commit(Aerial.config.articles.dir, "Initial import of first article")
