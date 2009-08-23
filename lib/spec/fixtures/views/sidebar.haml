@@ -4,11 +4,14 @@
     Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
     labore et dolore magna aliqua. Ut enimad minim veniam, quis nostrud exercitation ullamco
     laboris nisi ut aliquip ex ea commodo consequat.
+
 #menu
   %h2 Menu
   %ul
-    %a{:href => "/"}Home
-    %a{:href => "/about"}About
+    %li
+      %a{:href => "/"}Home
+    %li
+      %a{:href => "/about"}About
 %h2 Recent Posts
 %ul
   -Aerial::Article.recent.each do |article|
