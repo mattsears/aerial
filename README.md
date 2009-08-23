@@ -35,7 +35,7 @@ Aerial is still in active development.
 
 ## Source ###################################################################
 
-Grit's Git repo is available on GitHub, which can be browsed at:
+Aerial's Git repo is available on GitHub, which can be browsed at:
 
     http://github.com/mattsears/aerial
 
@@ -66,8 +66,10 @@ Now open your browser to:
 * Enable/disable comments for an article.
 * Limit the number of comments for an article.
 * Improve bootstrap tasks
+* Add article limit setting to config.yml
+* Support atom feeds
+* Add support for including non article content (pages)
 * Add more details to this README
-
 ## License ###################################################################
 
 Aerial is Copyright © 2009 Matt Sears, Littlelines. It is free software,
