@@ -12,7 +12,7 @@ describe 'article' do
       @article = Article.with_name("test-article-one")
     end
 
-    it "should find an article with .article extenstion " do
+    it "should find an article with .article extension " do
       @article.should_not be_nil
     end
 
@@ -101,11 +101,11 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
 
   end
 
-  describe "when articles don't exitst"  do
+  describe "when articles don't exist"  do
 
     it "should raise error when article could not be found" do
       lambda {
-        @article = Article.find("doesn't exists")
+        @article = Article.find("doesn't exist")
       }.should raise_error(RuntimeError)
     end
 
@@ -191,7 +191,7 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
       @articles.should be_instance_of(Array)
     end
 
-    it "should contain more than one Article" do
+    it "should contain more than one article" do
       @articles.size.should == 3
     end
 
