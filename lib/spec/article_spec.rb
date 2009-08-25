@@ -164,8 +164,8 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
       @articles.should be_instance_of(Array)
     end
 
-    it "should contain more than one Article" do
-      @articles.size.should == 4
+    it "should contain 5 articles" do
+      @articles.size.should == 5
     end
 
     it "should contain a comments array even if empty" do
@@ -191,8 +191,8 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
       @articles.should be_instance_of(Array)
     end
 
-    it "should contain more than one article" do
-      @articles.size.should == 3
+    it "should contain 4 articles" do
+      @articles.size.should == 4
     end
 
     it "should include articles with a specific task" do
@@ -219,7 +219,7 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
       @articles.each { |a| a.published_at.month.should == 12}
     end
 
-    it "should return 2 articles published in the year 2009" do
+    it "should return 3 articles published in the year 2009" do
       @articles.each { |a| a.published_at.year.should == 2009}
     end
 
@@ -242,7 +242,7 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
     end
 
     it "should return a list of publication dates" do
-      @archives.should == {["2009/01", "January 2009"]=>2, ["2009/12", "December 2009"]=>2}
+      @archives.should == {["2009/01", "January 2009"]=>2, ["2009/03", "March 2009"]=>1, ["2009/12", "December 2009"]=>2}
     end
 
   end
@@ -305,8 +305,8 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
       @tags.should be_instance_of(Array)
     end
 
-    it "should return a list of tag strings" do
-      @tags.size.should == 3
+    it "should return a list of 4 tag strings" do
+      @tags.size.should == 4
     end
 
   end
