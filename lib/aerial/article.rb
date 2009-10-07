@@ -14,19 +14,19 @@ module Aerial
       self.find_all
     end
 
-    # A quick way to load an article
+    # A quick way to load an article by blob id
     #   +id+ of the blob
     def self.open(id, options = {})
       self.find_by_blob_id(id, options)
     end
 
-    # Find a single article
+    # Find a single article by id
     #   +id+ of the blob
     def self.find(id, options={})
       self.find_by_id(id, options)
     end
 
-    # Find a single article
+    # Find a single article by name
     #   +name+ of the article file
     def self.with_name(name, options={})
       self.find_by_name(name, options)
@@ -58,6 +58,7 @@ module Aerial
     end
 
     # Return true if the article file exists
+    # +id+
     def self.exists?(id)
       self.find_by_name(id) ? true : false
     end
@@ -67,7 +68,7 @@ module Aerial
       self.find_tags
     end
 
-    # Calculate the ar
+    # Calculate the archives
     def self.archives
       self.find_archives
     end
@@ -79,21 +80,21 @@ module Aerial
     # Add a comment to the list of this Article's comments
     #  +comment new comment
     def add_comment(comment)
-      self.comments << comment.save(self.archive_name) # should we overload the << method?
+      self.comments << comment.save(self.archive_name) # TODO: should we overload the << method?
     end
 
-    # Permanent link for the article
+    # Make a permanent link for the article
     def permalink
       link = self.file_name.gsub('.article', '')
       "/#{published_at.year}/#{published_at.month}/#{published_at.day}/#{escape(link)}"
     end
 
-    # Returns the absolute path of the Article's file
+    # Returns the absolute path to the article file
     def expand_path
       return "#{self.archive_expand_path}/#{self.file_name}"
     end
 
-    # Returns the full path of the article's archive
+    # Returns the full path to the article archive (directory)
     def archive_expand_path
       return unless archive = self.archive_name
       return "#{Aerial.repo.working_dir}/#{Aerial.config.articles.dir}/#{archive}"
@@ -113,7 +114,7 @@ module Aerial
       end
     end
 
-    # Find the single article given the id
+    # Find a single article by id
     #   +id+ the blob id
     #   +options+
     def self.find_by_id(article_id, options = {})
@@ -126,8 +127,8 @@ module Aerial
       raise "Article not found"
     end
 
-    # Find the article given the blob id.
-    # This is a more efficient way of find and Article
+    # Find an article by blob id
+    # This is a more efficient way of finding an article
     # However, we won't know anything else about the article such as the filename, tree, etc
     #   +id+ of the blob
     def self.find_by_blob_id(id, options = {})
@@ -139,7 +140,7 @@ module Aerial
       raise "Article doesn't exists"
     end
 
-    # Returns the articles with the given tag
+    # Returns all articles by tag
     #   +tag+ the article category
     def self.find_by_tag(tag, options = {})
       articles = []
@@ -151,7 +152,8 @@ module Aerial
       return articles
     end
 
-    # Find a single article given the article's permalink value
+    # Find a single article by permalink
+    #   +link+
     def self.find_by_permalink(link, options={})
       if blog = Aerial.repo.tree/"#{Aerial.config.articles.dir}/"
         blog.contents.each do |entry|
@@ -162,7 +164,7 @@ module Aerial
       return false
     end
 
-    # Find all the articles with the given month and date
+    # Find all the articles by year and month
     def self.find_by_date(year, month, options ={})
       articles = []
       self.find_all.each do |article|
@@ -174,7 +176,7 @@ module Aerial
       return articles
     end
 
-    # Find all the articles in the reposiotory
+    # Find all the articles in the repository
     def self.find_all(options={})
       articles = []
       if blog = Aerial.repo.tree/"#{Aerial.config.articles.dir}/"
@@ -224,6 +226,7 @@ module Aerial
     end
 
     # Extract the Article attributes from the file
+    #   +blob+
     def self.extract_article(blob, options={})
       file                   = blob.data
       article                = Hash.new
