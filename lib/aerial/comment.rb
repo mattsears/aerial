@@ -136,7 +136,7 @@ module Aerial
     # Make sure the url is cleaned
     def sanitize_url
       return unless self.homepage
-      homepage.gsub!(/^(.*)/, 'http://\1') unless homepage =~ %r{^http://} or homepage.empty?
+      homepage.gsub!(/^(.*)/, 'http://\1') unless homepage =~ %r{^(http://|https://)} or homepage.empty?
     end
 
     # Try to prevent spam with akismet
