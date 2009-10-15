@@ -6,7 +6,7 @@
     %script{ 'type' => "text/javascript", :src => "/javascripts/jquery.template.js" }
     %script{ 'type' => "text/javascript", :src => "/javascripts/application.js" }
     %link{:href => '/style.css', :rel => 'stylesheet', :type => 'text/css'}
-    %link{:href => "http://#{hostname}/feed", :rel => 'alternate', :type => 'application/atom+xml', :title => "Feed for #{}" }
+    %link{:href => "#{base_url}/feed", :rel => 'alternate', :type => 'application/atom+xml', :title => "Feed for #{}" }
   %body
     #container
       #header

@@ -28,24 +28,41 @@ module Aerial
 
   module Helper
 
-    # Defines the url for our application
-    def hostname
+    # Returns the current url
+    def url() request.url end
+    
+    # Returns the request host
+    # TODO: just use request.host (http://rack.lighthouseapp.com/projects/22435/tickets/77-requesthost-should-answer-the-forwarded-host)
+    def host
       if request.env['HTTP_X_FORWARDED_SERVER'] =~ /[a-z]*/
         request.env['HTTP_X_FORWARDED_SERVER']
       else
-        request.env['HTTP_HOST']
+        request.host
       end
     end
 
-    # Returns the
+    # Returns the path
     def path
       base = "#{request.env['REQUEST_URI']}".scan(/\w+/).first
       return base.blank? ? "index" : base
     end
 
-    # Creates a complete link including the hostname
+    # Returns the absolute base url
+    def base_url
+      scheme = request.scheme
+      port = request.port
+      url = "#{scheme}://#{host}"
+      if scheme == "http" && port != 80 || scheme == "https" && port != 443
+        url << ":#{port}"
+      end
+      url << request.script_name
+    end
+
+    # Creates an absolute link
+    #  +link+ link to append to the baseurl
+    #  TODO: should we add more value to this? it seems like we might as well just take care of this by appending the link to base_url in the app
     def full_hostname(link = "")
-      "http://#{hostname}#{link}"
+      "#{base_url}#{link}"
     end
 
     # Display the page titles in proper format
