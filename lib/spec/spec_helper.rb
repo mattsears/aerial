@@ -8,7 +8,11 @@ require 'fileutils'
 require 'grit'
 require 'rack'
 require 'spec'
-require 'sinatra/test/rspec'
+require 'rack/test'
+
+def app
+  Sinatra::Application
+end
 
 # Helper for matching html tags
 module TagMatchers
@@ -99,6 +103,7 @@ Spec::Runner.configure do |config|
   require File.expand_path(File.dirname(__FILE__) + "/../aerial")
   config.include TagMatchers
   config.include GitHelper
+  config.include Rack::Test::Methods
   config.include Aerial
   config.include Aerial::Helper
 end
