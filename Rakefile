@@ -77,3 +77,20 @@ begin
 rescue LoadError
   # do nothing
 end
+
+
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gemspec|
+    gemspec.name = "aerial"
+    gemspec.summary = "A simple, blogish software build with Sinatra, jQuery, and uses Git for data storage  "
+    gemspec.description = "A simple, blogish software build with Sinatra, jQuery, and uses Git for data storage  "
+    gemspec.email = "matt@mattsears.com"
+    gemspec.homepage = "http://github.com/mattsears/aerial"
+    gemspec.description = "A simple, blogish software build with Sinatra, jQuery, and uses Git for data storage"
+    gemspec.authors = ["Matt Sears"]
+  end
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
+end
