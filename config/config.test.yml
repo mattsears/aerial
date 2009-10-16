@@ -1,0 +1,49 @@
+title: "Aerial"
+subtitle: "Articles, Pages, and Such"
+name:  "Aerial"
+author: "Awesome Ruby Developer"
+email:  "aerial@example.com"
+
+# You can add any meta element pairs here
+# name => content 
+meta:
+  description: "describe this site"
+  keywords: "aerial,git,sinatra,jquery"
+
+public:
+  dir: "public"
+
+views:
+  dir: "app/views"
+  default: "home"
+
+# Content repository
+git:
+  url: "git://github.com/jrobeson/aerial-sample-content.git"
+  path: "spec/repo"
+  name: "origin"
+  branch: "master"
+
+# If you want to add synchronizing via Github post-receive hooks,
+# insert some secure password here. Then set a "Post-Receive URL"
+# in Github administration to http://{YOUR SERVER}/sync?token={WHAT YOU SET BELOW}
+github_token: ~
+
+# Akismet spam protection. Get your key at http://akismet.com 
+akismet:
+  key: ""
+  url: ""
+
+# http://antispam.typepad.com/info/developers.html
+typekey_antispam:
+  key: ""
+  url: ""
+
+# You should not need to modify anything below this line
+
+# Directory where articles are stored inside your content repository
+articles:
+  dir: "articles"
+env:
+  # Path to git or other required executables (separated by colons)
+  path: ""

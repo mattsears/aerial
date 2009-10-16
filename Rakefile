@@ -16,13 +16,13 @@ require 'lib/aerial/config'
 # Rspec setup
 desc "Run all specs"
 Spec::Rake::SpecTask.new do |t|
-  t.spec_files = FileList['lib/spec/**/*_spec.rb']
+  t.spec_files = FileList['spec/**/*_spec.rb']
 end
 
 namespace :spec do
   desc "Run all specs with rcov"
   Spec::Rake::SpecTask.new('rcov') do |t|
-    t.spec_files = FileList['lib/spec/**/*_spec.rb']
+    t.spec_files = FileList['spec/**/*_spec.rb']
     t.rcov = true
     t.rcov_dir = 'coverage'
     t.rcov_opts = ['--exclude',

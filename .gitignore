@@ -1,1 +1,3 @@
-lib/spec/repo
+spec/repo
+coverage
+content
