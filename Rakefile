@@ -2,16 +2,13 @@ require 'rubygems'
 require 'spec/version'
 require 'spec/rake/spectask'
 require 'cucumber/rake/task'
-<<<<<<< HEAD:Rakefile
 
 AERIAL_ROOT = "."
 require File.join(AERIAL_ROOT, 'lib', 'aerial')
-=======
 require 'git'
 require 'grit'
 # TODO: refactor config file loading in base.rb
 require 'lib/aerial/config'
->>>>>>> 4233365... no need to join, we can just require config lib directly in the Rakefile:Rakefile
 
 # Rspec setup
 desc "Run all specs"
