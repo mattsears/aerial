@@ -6,7 +6,7 @@ module Aerial
   # Base class for all the site's content
   class Content
 
-    attr_reader :id, :author, :title, :body, :published_at, :archive_name, :file_name
+    attr_reader :id, :author, :title, :body, :publish_date, :archive_name, :file_name
 
     def initialize(atts = {})
       atts.each_pair { |key, value| instance_variable_set("@#{key}", value) if self.respond_to? key}
@@ -18,26 +18,17 @@ module Aerial
     # PROTECTED CLASS METHODS
     # =============================================================================================
 
-    # With the comment string, attempt to find the given field
-    #   +field+ the label before the ":"
-    #   +comment+ is the contents of the comment
-    def self.extract_header(field, content)
-      return self.scan_for_field(content, self.header_field_for(field))
-    end
-
-    # Returns the string that matches the given pattern
-    def self.scan_for_field(contents, pattern)
-      content = contents.scan(pattern).first.to_s.strip
-    end
-
-    # Returns the regular expression pattern for the header fields
-    def self.header_field_for(header)
-      exp = Regexp.new('^'+header+'\s*:(.*)$', Regexp::IGNORECASE)
-    end
-
-    # Returns the regular expression pattern for the body field
-    def self.body_field
-      exp = Regexp.new('^\n(.*)$', Regexp::MULTILINE)
+    def self.extract_attributes(content, options={})
+      attributes                = Hash.new
+      header, body = content.split(/\n\n/, 2)
+      attributes[:body] = body.strip if body
+      header.each do |line|
+        field, data = line.split(/:/, 2)
+        field = field.downcase.strip.gsub(' ', '_')
+        attributes[field.to_sym] = data.to_s.strip
+      end
+      attributes[:publish_date] = DateTime.parse(attributes[:publish_date]) if attributes[:publish_date]
+      return attributes
     end
 
     # Look for <code> blocks and convert it for syntax highlighting

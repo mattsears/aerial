@@ -67,7 +67,7 @@ describe 'comment' do
 
     it "should format the string version of the comment" do
       comment = Comment.new(:author => "author", :email => "test@test.com")
-      comment.to_s.should == "Author: author \nPublished: #{comment.published_at} \nEmail: test@test.com \n"
+      comment.to_s.should == "Author: author \nPublish Date: #{comment.publish_date} \nEmail: test@test.com \n"
     end
 
     describe "without a homepage field" do
@@ -147,11 +147,11 @@ describe 'comment' do
 
     before do
       @article = Article.with_name("test-article-two")
-      @comment = Comment.new(:author    => "Matt Sears",
-                             :body      => "Comment content",
-                             :email     => "matt@mattsears.com",
-                             :published => Date.today,
-                             :homepage  => "http://example.com")
+      @comment = Comment.new(:author       => "Matt Sears",
+                             :body         => "Comment content",
+                             :email        => "matt@mattsears.com",
+                             :publish_date => Date.today,
+                             :homepage     => "http://example.com")
     end
 
     it "should NOT have written a new comment to disk yet" do
@@ -172,7 +172,7 @@ describe 'comment' do
 
     it "should assign a publication date of the comment" do
       @comment.save(@article.archive_name).should == @comment
-      @comment.published_at.should be_instance_of(DateTime)
+      @comment.publish_date.should be_instance_of(DateTime)
     end
 
     it "should write a new comment to disk" do

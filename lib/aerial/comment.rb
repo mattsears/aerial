@@ -4,7 +4,7 @@ module Aerial
   class Comment < Content
 
     attr_reader   :id,           :permalink, :article,      :spam,       :file_path
-    attr_accessor :archive_name, :spam,      :published_at, :name,       :referrer,
+    attr_accessor :archive_name, :spam,      :publish_date, :name,       :referrer,
                   :email,        :homepage,  :user_ip,      :user_agent, :file_name
 
     def initialize(atts = {})
@@ -81,12 +81,12 @@ module Aerial
     def to_s
       me = ""
       me << "Author: #{self.author} \n" if self.author
-      me << "Published: #{self.published_at} \n" if self.published_at.to_s
+      me << "Publish Date: #{self.publish_date} \n" if self.publish_date.to_s
       me << "Email: #{self.email} \n" if self.email
       me << "Homepage: #{self.homepage} \n" if self.homepage
       me << "User IP: #{self.user_ip} \n" if self.user_ip
       me << "User Agent: #{self.user_agent} \n" if self.user_agent
-      me << "Spam?: #{self.spam} \n" if self.user_agent
+      me << "Spam?: #{self.spam} \n" if self.spam
       me << "\n#{self.body}" if self.body
       return me
     end
@@ -100,17 +100,8 @@ module Aerial
     # Create a new Comment instance with data from the given file
     def self.extract_comment_from(data, options = {})
       comment_file          = data.to_s
-      comment               = options
-      comment[:id]          = self.extract_header("id", comment_file)
-      comment[:user_ip]     = self.extract_header("ip", comment_file)
-      comment[:user_agent]  = self.extract_header("user-agent", comment_file)
-      comment[:referrer]    = self.extract_header("referrer", comment_file)
-      comment[:permalink]   = self.extract_header("permalink", comment_file)
-      comment[:author]      = self.extract_header("author", comment_file)
-      comment[:email]       = self.extract_header("email", comment_file)
-      comment[:homepage]    = self.extract_header("homepage", comment_file)
-      comment[:published_at]= DateTime.parse(self.extract_header("published", comment_file))
-      comment[:body]        = self.scan_for_field(comment_file, self.body_field)
+      comment               = self.extract_attributes(comment_file)
+      comment.merge!(options)
       return comment
     end
 
@@ -118,7 +109,7 @@ module Aerial
     def self.save_new(comment)
       return false unless comment && comment.archive_name
       comment.generate_name!
-      comment.published_at = DateTime.now
+      comment.publish_date = DateTime.now
       path = File.join(Aerial.config.articles.dir, comment.archive_name, comment.name)
       Dir.chdir(Aerial.repo.working_dir) do
         File.open(path, 'w') do |file|

@@ -37,7 +37,7 @@ describe 'article' do
     end
 
     it "should assign the article a publication date" do
-      @article.published_at.should == DateTime.new(y=2009,m=1,d=31)
+      @article.publish_date.should == DateTime.new(y=2009,m=1,d=31)
     end
 
     it "should assign the article a body attribute" do
@@ -216,11 +216,11 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
     end
 
     it "should return 2 articles published in the 12th month" do
-      @articles.each { |a| a.published_at.month.should == 12}
+      @articles.each { |a| a.publish_date.month.should == 12}
     end
 
     it "should return 3 articles published in the year 2009" do
-      @articles.each { |a| a.published_at.year.should == 2009}
+      @articles.each { |a| a.publish_date.year.should == 2009}
     end
 
     it "should find articles with dates in string format" do
@@ -315,11 +315,11 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
 
     before(:each) do
       @article = Article.with_name("test-article-one")
-      @comment = Comment.new(:author    => "Matt Sears",
-                             :body      => "Comment content",
-                             :email     => "matt@mattsears.com",
-                             :published => Date.today,
-                             :homepage  => "http://example.com")
+      @comment = Comment.new(:author       => "Matt Sears",
+                             :body         => "Comment content",
+                             :email        => "matt@mattsears.com",
+                             :publish_date => Date.today,
+                             :homepage     => "http://example.com")
     end
 
     it "should add a new comment with no errors" do

@@ -6,7 +6,7 @@
     %span
       =article.comments.size
   %h3
-    ="Posted by #{article.author} on #{humanized_date article.published_at}"
+    ="Posted by #{article.author} on #{humanized_date article.publish_date}"
   %p.entry
     =article.body_html
   .meta
