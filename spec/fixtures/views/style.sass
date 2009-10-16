@@ -1,0 +1,163 @@
+!red = #f00
+!black = #000
+!darkgrey = #555
+!lightgrey = #eeeeee
+!blue = #2168a6
+!red = #ed1e24
+
+=image-replacement
+  :text-indent -9999px
+  :margin-bottom 0.3em
+
+body
+  :color = !black
+  :font normal 12px Verdana, Arial, sans-serif
+  :font-size 88%
+  :line-height 1.5
+a
+  :text-decoration none
+  :color = !darkgrey
+  &:visited
+    :color = !darkgrey
+  &:hover, &:visited
+    :text-decoration underline
+h2
+  :font-size 100%
+
+ul
+  :padding 0
+  li
+    :list-style none
+    :line-height 1.2
+    :margin 0 0 5px 0
+    a
+      :text-decoration underline
+      &:hover
+        :text-decoration none
+form
+  :background = !lightgrey
+  :padding 10px
+  :border-top 1px solid #ddd
+  :font-size 100%
+  p
+    :margin 0 0 5px 0
+  label
+    :font-size 88%
+  label.error
+    :background-color = !red
+    :padding 2px
+    :color #fff
+  input
+    :border 1px solid
+    :padding 2px
+    :width 300px
+    :border-color = #ddd
+    :font-size 100%
+  textarea
+    :border 1px solid
+    :border-color = #ddd
+    :width 500px
+    :padding 3px
+    :height 75px
+    :font normal 14px Verdana, Arial, sans-serif
+
+#header
+  :height 60px
+  :width 100%
+  :border-bottom 1px dashed
+  :border-color = !lightgrey
+  #logo
+    :float left
+    :height 50px
+    h1
+      :font 300% arial, sans-serif
+      :padding 5px 0
+      :margin 0
+      a
+        :color = !blue
+        :text-decoration none
+      span
+        :font-size 16pt
+        :color = !darkgrey
+
+#container
+  :width 800px
+  :margin 0 auto
+
+#content
+  :width 575px
+  :float left
+  :border-right 1px dashed
+  :border-color = !lightgrey
+  :padding 10px 10px 0 0
+  h5
+    :font-size 110%
+    :background-color #ffd
+    :margin 1.2em 0 0.3em
+    :padding 3px
+    :border-bottom 1px dotted #aaa
+  .article, .page
+    h2
+      :color = !darkgrey
+      :font-family arial, sans-serif
+      :font-weight normal
+      :letter-spacing -1px
+      :font-size 28px
+      :margin 0 0 -9px 0
+      a
+        :text-decoration none
+    span
+      :color = !lightgrey
+    h3
+      :color #777
+      :font-weight normal
+      :margin 0 0 0 2px
+      :padding 0
+      :font-size 110%
+      :letter-spacing -0.5px
+  .meta
+    :font-size 8pt
+    :background = !lightgrey
+    :padding 5px
+    :border 1px solid #ddd
+    :margin 15px 0
+    span
+      :color = !darkgrey !important
+      :font-weight bold
+
+  .comment
+    :margin 15px 0
+    :padding 10px
+    :border 3px solid
+    :border-color = !lightgrey
+    h2
+      span
+        :font-size 88%
+        :margin-left 5px
+        :color #777
+
+#sidebar
+  :float right
+  :width 200px
+  :font-size 88%
+  p
+    :margin-top -7px
+  a
+    :color = !blue
+
+#footer
+  :width 100%
+  :height 100px
+  :float left
+  :margin-top 20px
+  :border-top 1px dashed
+  :border-color = !lightgrey
+  p
+    :margin-top 5px
+  #legal
+    :width 40%
+    :float left
+  #powered
+    :width  50%
+    :float right
+    :text-align right
