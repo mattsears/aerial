@@ -234,5 +234,6 @@ module Aerial
       article[:body_html]    = RDiscount::new(article[:body]).to_html
       return article
     end
+
   end
 end

@@ -93,7 +93,7 @@ post '/article/:id/comments' do
   comment = Aerial::Comment.new(params.merge!( {
     :referrer    => request.referrer,
     :user_agent  => request.user_agent,
-    :user_ip     => request.ip
+    :ip          => request.ip
   }))
 
   @article.comments << comment.save(@article.archive_name)

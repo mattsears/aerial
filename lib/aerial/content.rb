@@ -24,7 +24,7 @@ module Aerial
       attributes[:body] = body.strip if body
       header.each do |line|
         field, data = line.split(/:/, 2)
-        field = field.downcase.strip.gsub(' ', '_')
+        field = field.downcase.strip.gsub(' ', '_').gsub('-', '_')
         attributes[field.to_sym] = data.to_s.strip
       end
       attributes[:publish_date] = DateTime.parse(attributes[:publish_date]) if attributes[:publish_date]
