@@ -1,3 +1,4 @@
+
 require "#{File.dirname(__FILE__)}/spec_helper"
 
 describe 'article' do
@@ -29,11 +30,6 @@ describe 'article' do
     it "should create a list of hyperlinks for each tag" do
       tags = ["ruby", "sinatra"]
       link_to_tags(tags).should == "<a href='/tags/ruby' rel='ruby'>ruby</a>, <a href='/tags/sinatra' rel='sinatra'>sinatra</a>"
-    end
-
-    it "should default the current path to 'index' for the root of the application" do
-      request.stub!(:env).and_return('/')
-      path.should == "index"
     end
 
   end

@@ -20,9 +20,9 @@ describe 'main aerial application' do
     last_response.should be_ok
   end
 
-  it 'should send 404 properly' do
-    get '/not-found.html'
-    last_response.status.should == 404
+  it 'should send the not_found action if page does not exists' do
+    get '/does_not_exist.html'
+    last_response.status.should == 200
   end
 
   it "should render a single article page" do
@@ -32,7 +32,7 @@ describe 'main aerial application' do
 
   it "should render the home page" do
     get '/home'
-    @response.status.should == 200
+    last_response.status.should == 200
   end
 
   describe "calling /style.css" do
@@ -51,7 +51,7 @@ describe 'main aerial application' do
 
   end
 
-   describe "calling /tags" do
+  describe "calling /tags" do
 
     before do
       @article = Article.new(:title        => "Test Article",

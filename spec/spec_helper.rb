@@ -100,7 +100,7 @@ Spec::Runner.configure do |config|
   repo_path = new_git_repo
   CONFIG = YAML.load_file( File.join(File.dirname(__FILE__), 'fixtures', 'config.yml') ) unless defined?(CONFIG)
   AERIAL_ROOT = File.join(File.dirname(__FILE__), 'repo') unless defined?(AERIAL_ROOT)
-  require File.expand_path(File.dirname(__FILE__) + "/../aerial")
+  require File.expand_path(File.dirname(__FILE__) + "/../lib/aerial")
   config.include TagMatchers
   config.include GitHelper
   config.include Rack::Test::Methods
