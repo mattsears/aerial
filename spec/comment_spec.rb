@@ -50,7 +50,7 @@ describe 'comment' do
     end
 
     it "should assign an IP address of the commenter" do
-      @comment.user_ip.should == "127.0.0.1"
+      @comment.ip.should == "127.0.0.1"
     end
 
     it "should assign a homepage of the commenter" do

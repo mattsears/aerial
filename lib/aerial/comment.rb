@@ -5,7 +5,7 @@ module Aerial
 
     attr_reader   :id,           :permalink, :article,      :spam,       :file_path
     attr_accessor :archive_name, :spam,      :publish_date, :name,       :referrer,
-                  :email,        :homepage,  :user_ip,      :user_agent, :file_name
+                  :email,        :homepage,  :ip,           :user_agent, :file_name
 
     def initialize(atts = {})
       super
@@ -84,7 +84,7 @@ module Aerial
       me << "Publish Date: #{self.publish_date} \n" if self.publish_date.to_s
       me << "Email: #{self.email} \n" if self.email
       me << "Homepage: #{self.homepage} \n" if self.homepage
-      me << "User IP: #{self.user_ip} \n" if self.user_ip
+      me << "User IP: #{self.ip} \n" if self.ip
       me << "User Agent: #{self.user_agent} \n" if self.user_agent
       me << "Spam?: #{self.spam} \n" if self.spam
       me << "\n#{self.body}" if self.body
@@ -135,7 +135,7 @@ module Aerial
       {
         :key                  => Aerial.config.akismet.key,
         :blog                 => Aerial.config.akismet.url,
-        :user_ip              => self.user_ip,
+        :user_ip              => self.ip,
         :user_agent           => self.user_agent,
         :referrer             => self.referrer,
         :permalink            => self.permalink,
