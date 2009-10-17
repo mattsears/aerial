@@ -56,7 +56,7 @@ describe 'main aerial application' do
     before do
       @article = Article.new(:title        => "Test Article",
                              :tags         => "git, sinatra",
-                             :published_at => DateTime.new,
+                             :publish_date => DateTime.new,
                              :comments     => [],
                              :file_name    => "test-article")
       Aerial::Article.stub!(:with_tag).and_return([@article])
@@ -111,8 +111,8 @@ describe 'main aerial application' do
     end
 
     it "should have a pubDate tag with the article's publication date" do
-      last_response.body.should have_tag('//item[1]/pubDate').with_text(@articles[0].published_at.to_s)
-      last_response.body.should have_tag('//item[2]/pubDate').with_text(@articles[1].published_at.to_s)
+      last_response.body.should have_tag('//item[1]/pubDate').with_text(@articles[0].publish_date.to_s)
+      last_response.body.should have_tag('//item[2]/pubDate').with_text(@articles[1].publish_date.to_s)
     end
 
     it "should have a guid date that matches the articles id" do
@@ -150,7 +150,7 @@ describe 'main aerial application' do
       @article = Article.new(:title        => "Test Article",
                              :body         => "Test Content",
                              :id           => 333,
-                             :published_at => DateTime.new,
+                             :publish_date => DateTime.new,
                              :comments     => [],
                              :file_name    => "test-article.article")
       Aerial::Article.stub!(:with_date).and_return([@article])

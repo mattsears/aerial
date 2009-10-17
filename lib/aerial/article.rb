@@ -3,7 +3,7 @@ module Aerial
   class Article < Content
 
     attr_reader :comments, :id,         :tags,      :archive_name, :body_html,
-                :meta,     :updated_on, :published, :file_name
+                :meta,     :updated_on, :publish_date, :file_name
 
     # =============================================================================================
     # PUBLIC CLASS METHODS
@@ -85,8 +85,8 @@ module Aerial
 
     # Make a permanent link for the article
     def permalink
-      link = self.file_name.gsub('.article', '')
-      "/#{published_at.year}/#{published_at.month}/#{published_at.day}/#{escape(link)}"
+      link = self.file_name.gsub(/\.article$|\.markdown$|\.md$|\.mdown$|\.mkd$|\.mkdn$/, '')
+      "/#{publish_date.year}/#{publish_date.month}/#{publish_date.day}/#{escape(link)}"
     end
 
     # Returns the absolute path to the article file
@@ -168,8 +168,8 @@ module Aerial
     def self.find_by_date(year, month, options ={})
       articles = []
       self.find_all.each do |article|
-        if article.published_at.year == year.to_i &&
-            article.published_at.month == month.to_i
+        if article.publish_date.year == year.to_i &&
+            article.publish_date.month == month.to_i
           articles << article
         end
       end
@@ -185,7 +185,7 @@ module Aerial
           articles << self.find_article(entry, options) if article
         end
       end
-      return articles.sort_by { |article| article.published_at}.reverse
+      return articles.sort_by { |article| article.publish_date}.reverse
     end
 
     # Look in the given tree, find the article
@@ -219,7 +219,7 @@ module Aerial
     def self.find_archives
       dates = []
       self.all.each do |article|
-        date = article.published_at
+        date = article.publish_date
         dates << [date.strftime("%Y/%m"), date.strftime("%B %Y")]
       end
       return dates.inject(Hash.new(0)) { |h,x| h[x] += 1; h }
@@ -228,17 +228,11 @@ module Aerial
     # Extract the Article attributes from the file
     #   +blob+
     def self.extract_article(blob, options={})
-      file                   = blob.data
-      article                = Hash.new
+      article                = self.extract_attributes(blob.data)
       article[:id]           = blob.id
-      article[:author]       = self.extract_header("author", file)
-      article[:title]        = self.extract_header("title", file)
-      article[:tags]         = self.extract_header("tags", file).split(/, /)
-      article[:published_at] = DateTime.parse(self.extract_header("published", file))
-      article[:body]         = self.scan_for_field(file, self.body_field)
-      article[:body_html]    = RDiscount::new( article[:body] ).to_html
+      article[:tags]         = article[:tags].split(/, /)
+      article[:body_html]    = RDiscount::new(article[:body]).to_html
       return article
     end
-
   end
 end
