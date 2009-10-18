@@ -1,17 +1,17 @@
-title: ""
+title: "Aerial"
 subtitle: ""
 name:  ""
 author: ""
 email:  ""
 
 articles:
-  dir: "app/articles"
+  dir: "articles"
 
 public:
   dir: "public"
 
 views:
-  dir: "app/views"
+  dir: "views"
   default: "home"
 
 akismet:

@@ -40,6 +40,11 @@ task :run do
   exec "ruby lib/aerial.rb"
 end
 
+desc "Launch Aerial cartwheel"
+task :launch do
+  ruby "bin/aerial launch"
+end
+
 namespace :setup do
 
   desc "Copy over a sample article"
@@ -47,7 +52,7 @@ namespace :setup do
     puts "* Creating article directory in " + Aerial.config.views.dir
     article_dir = File.join(AERIAL_ROOT, 'lib','spec','fixtures',
                             'articles', 'congratulations-aerial-is-configured-correctly')
-    FileUtils.mkdir_p( Aerial.config.articles.dir )
+    FileUtils.mkdir_p(Aerial.config.articles.dir )
     FileUtils.cp_r(article_dir, Aerial.config.articles.dir )
     Aerial::Git.commit(Aerial.config.articles.dir, "Initial import of first article")
   end
@@ -80,6 +85,8 @@ rescue LoadError
   # do nothing
 end
 
+desc "Build a gem"
+task :gem => [ :gemspec, :build ]
 
 begin
   require 'jeweler'
