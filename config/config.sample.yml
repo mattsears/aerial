@@ -1,0 +1,29 @@
+# Title and Subtitle of the Site Aerail will be running
+title: "Aerial"
+subtitle: "Friendly "
+
+# Information about you
+name:  "Awesome Ruby Developer"
+author: "Not sure what this is for?"
+email:  "aerial@example.com"
+
+# This is where you articles are stored
+articles:
+  dir: "articles"
+
+# Images, stylesheets, javascripts, etc
+public:
+  dir: "public"
+
+# Pages
+views:
+  dir: "app/views"
+  default: "home"
+
+# Check for span when folks add comments to your blog
+akismet:
+  key: ""
+  url: ""
+
+# Path to the Aerial log file
+:log: /var/log/aerial.log
