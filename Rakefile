@@ -3,8 +3,6 @@ require 'spec/version'
 require 'spec/rake/spectask'
 require 'cucumber/rake/task'
 
-AERIAL_ROOT = "."
-require File.join(AERIAL_ROOT, 'lib', 'aerial')
 require 'git'
 require 'grit'
 # TODO: refactor config file loading in base.rb
@@ -86,7 +84,10 @@ rescue LoadError
 end
 
 desc "Build a gem"
-task :gem => [ :gemspec, :build ]
+task :gem => [ :gemspec, :build ] do
+  command = "gem install --local ./pkg/aerial-0.1.0.gem"
+  sh command
+end
 
 begin
   require 'jeweler'
