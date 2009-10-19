@@ -12,9 +12,9 @@ describe 'article' do
       @article = Article.with_name("test-article-one")
     end
 
-    it "should find an article with .article extension " do
-      @article.should_not be_nil
-    end
+     it "should find an article with .article extension " do
+       @article.should_not be_nil
+     end
 
     it "should assign the article's author" do
       @article.author.should == "Matt Sears"
