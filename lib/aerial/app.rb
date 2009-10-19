@@ -1,17 +1,10 @@
 module Aerial
   class App < Sinatra::Default
-
     include Aerial
 
     before do
       # kill trailing slashes for all requests except '/'
       request.env['PATH_INFO'].gsub!(/\/$/, '') if request.env['PATH_INFO'] != '/'
-    end
-
-    # Configuration
-    configure do
-      set :views  => Aerial.config.theme_directory
-      set :public => Aerial.config.public.dir
     end
 
     # Helpers
@@ -81,10 +74,9 @@ module Aerial
       @article = Aerial::Article.find(params[:id])
       throw :halt, [404, not_found ] unless @article
 
-      comment = Aerial::Comment.new(params.merge!( {
-                                                     :referrer    => request.referrer,
-                                                     :user_agent  => request.user_agent,
-                                                     :ip          => request.ip
+      comment = Aerial::Comment.new(params.merge!({ :referrer    => request.referrer,
+                                                    :user_agent  => request.user_agent,
+                                                    :ip          => request.ip
                                                    }))
 
       @article.comments << comment.save(@article.archive_name)
