@@ -19,14 +19,12 @@ module Aerial
       puts post_install_message
     end
 
-    desc "launch [CONFIG]",
-    "Launch Aerial cartwheel."
+    desc "launch [CONFIG]", "Launch Aerial cartwheel."
     method_options :config => :optional, :port => 4567
     def launch
       require "thin"
 
-      File.file?(options[:config].to_s) ?
-      Aerial.new(options[:config]) : Aerial.new
+      File.file?(options[:config].to_s) ? Aerial.new(options[:config]) : Aerial.new
       Aerial.config[:base_uri] = "http://0.0.0.0:#{options[:port]}"
       Thin::Server.start("0.0.0.0", options[:port], Aerial::App)
 
@@ -57,12 +55,20 @@ module Aerial
     def bootstrap
       copy "views", "../../examples"
       copy "public", "../../examples"
+      initialize_repo
       create_initial_article
     end
 
     def create_initial_article
       copy "articles", "../../examples"
-      Aerial::Git.commit("#{root}", "Initial installation of Aerial")
+      # Aerial::Git.commit("#{root}/articles", "Initial installation of Aerial")
+    end
+
+    # Create a new repo if on none exists
+    def initialize_repo
+      unless File.exist?(File.join(root, '.git'))
+        system "cd #{root}; git init"
+      end
     end
 
     # Rename and the sample config files
