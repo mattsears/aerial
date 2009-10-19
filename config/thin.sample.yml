@@ -1,5 +1,5 @@
 ---
-environment: production
+environment: development
 chdir: /apps/aerial
 address: 127.0.0.1
 port: 4567
@@ -9,5 +9,5 @@ log: /apps/aerial/log/thin.log
 max_conns: 1024
 timeout: 30
 max_persistent_conns: 512
-daemonize: true
-servers: 2
+daemonize: false
+servers: 1
