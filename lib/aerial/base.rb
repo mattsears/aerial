@@ -1,36 +1,10 @@
-CONFIG = YAML.load_file( File.join(AERIAL_ROOT, 'config', 'config.yml') ) unless defined?(CONFIG)
-
-require 'aerial/content'
-require 'aerial/article'
-require 'aerial/comment'
-require 'aerial/vendor/cache'
-require 'aerial/vendor/akismetor'
-require 'aerial/config'
-
 module Aerial
-
-  VERSION = '0.1.0'
-
-  class << self
-    attr_accessor :debug, :logger, :repo, :config
-
-    def log(str)
-      logger.debug { str } if debug
-    end
-  end
-
-  # Make sure git is added to the env path
-  ENV['PATH'] = "#{ENV['PATH']}:/usr/local/bin"
-  @logger ||= ::Logger.new(STDOUT)
-  @config ||= Aerial::Config.new(CONFIG)
-  @repo   ||= Grit::Repo.new(File.join(AERIAL_ROOT, '.'))
-  @debug  ||= false
 
   module Helper
 
     # Returns the current url
     def url() request.url end
-    
+
     # Returns the request host
     # TODO: just use request.host (http://rack.lighthouseapp.com/projects/22435/tickets/77-requesthost-should-answer-the-forwarded-host)
     def host
