@@ -23,6 +23,12 @@ Aerial is still in active development.
 * YAML configuration
 * 100% code coverage
 
+## Installation #############################################################
+
+    $ gem install aerial
+    $ aerial install
+    # Navigate to <http://0.0.0.0:4567>
+
 ## Requirements #############################################################
 
 * sinatra (for awesomeness)
