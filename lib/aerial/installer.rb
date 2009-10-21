@@ -57,11 +57,11 @@ module Aerial
       copy "public", "../../examples"
       initialize_repo
       create_initial_article
+      initial_commit
     end
 
     def create_initial_article
       copy "articles", "../../examples"
-      # Aerial::Git.commit("#{root}/articles", "Initial installation of Aerial")
     end
 
     # Create a new repo if on none exists
@@ -69,6 +69,12 @@ module Aerial
       unless File.exist?(File.join(root, '.git'))
         system "cd #{root}; git init"
       end
+    end
+
+    def initial_commit
+      Aerial.new(root, "/config.yml")
+      system "cd #{root}; git add ."
+      Aerial::Git.commit("#{root}/articles", "Initial installation of Aerial")
     end
 
     # Rename and the sample config files
