@@ -26,7 +26,21 @@ Aerial is still in active development.
 ## Installation #############################################################
 
     $ gem install aerial
-    $ aerial install
+    $ aerial install /home/user/myblog
+    # Navigate to <http://0.0.0.0:4567>
+
+This will create a new directory and a few files, mainly the views, config files, and a sample article to get you started. Then, edit config.yml to your liking.
+
+## From Source ##############################################################
+
+Aerial's Git repo is available on GitHub, which can be browsed at:
+
+    http://github.com/mattsears/aerial
+
+and cloned with:
+
+    $ git clone git://github.com/mattsears/aerial.git
+    $ rake launch
     # Navigate to <http://0.0.0.0:4567>
 
 ## Requirements #############################################################
@@ -39,34 +53,6 @@ Aerial is still in active development.
 * Haml (can easily be switch to erb, or whatever)
 * jQuery (http://jquery.com)
 
-## Source ###################################################################
-
-Aerial's Git repo is available on GitHub, which can be browsed at:
-
-    http://github.com/mattsears/aerial
-
-and cloned with:
-
-    git clone git://github.com/mattsears/aerial.git
-
-## Getting Started ###########################################################
-
-Install the following Rubygems:
-
-    sudo gem install sinatra rack thin rdiscount grit haml
-
-Add your custom settings to the configuration file:
-
-    config/config.yml
-
-Run the bootstrap Rake task to get started with a sample article
-
-    rake bootstrap
-
-Now open your browser to:
-
-    http://localhost:4567
-
 ## Todo  #####################################################################
 
 * Enable/disable comments for an article.
@@ -76,6 +62,7 @@ Now open your browser to:
 * Support atom feeds
 * Add support for including non article content (pages)
 * Add more details to this README
+
 ## License ###################################################################
 
 Aerial is Copyright © 2009 Matt Sears, Littlelines. It is free software,
