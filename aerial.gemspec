@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matt Sears"]
-  s.date = %q{2009-10-18}
+  s.date = %q{2009-10-20}
   s.default_executable = %q{aerial}
   s.description = %q{A simple, blogish software build with Sinatra, jQuery, and uses Git for data storage}
   s.email = %q{matt@mattsears.com}
@@ -23,6 +23,7 @@ Gem::Specification.new do |s|
      "README.md",
      "Rakefile",
      "VERSION",
+     "aerial.gemspec",
      "bin/aerial",
      "config/config.sample.ru",
      "config/config.sample.yml",
@@ -51,6 +52,7 @@ Gem::Specification.new do |s|
      "features/support/env.rb",
      "features/support/pages/article.rb",
      "features/support/pages/homepage.rb",
+     "index.html",
      "lib/aerial.rb",
      "lib/aerial/app.rb",
      "lib/aerial/article.rb",
@@ -62,6 +64,7 @@ Gem::Specification.new do |s|
      "lib/aerial/vendor/akismetor.rb",
      "lib/aerial/vendor/cache.rb",
      "spec/aerial_spec.rb",
+     "spec/app_spec.rb",
      "spec/article_spec.rb",
      "spec/base_spec.rb",
      "spec/comment_spec.rb",
@@ -92,6 +95,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/mattsears/aerial}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
+  s.rubyforge_project = %q{aerial}
   s.rubygems_version = %q{1.3.5}
   s.summary = %q{A simple, blogish software build with Sinatra, jQuery, and uses Git for data storage}
   s.test_files = [

@@ -34,7 +34,8 @@ module Aerial
 
     # Creates an absolute link
     #  +link+ link to append to the baseurl
-    #  TODO: should we add more value to this? it seems like we might as well just take care of this by appending the link to base_url in the app
+    #  TODO: should we add more value to this? it seems like we might as well
+    #    just take care of this by appending the link to base_url in the app
     def full_hostname(link = "")
       "#{base_url}#{link}"
     end
