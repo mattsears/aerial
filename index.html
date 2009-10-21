@@ -1,1 +1,164 @@
-Aerial Github Page
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8"  />
+    <title>aerial</title>
+    <style type="text/css">
+      /* reset */
+      html, body, div, span, applet, object, iframe,
+      h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+      a, abbr, acronym, address, big, cite, code,
+      del, dfn, em, font, img, ins, kbd, q, s, samp,
+      small, strike, strong, sub, sup, tt, var,
+      dl, dt, dd, ul, li,
+      form, label, legend,
+      table, caption, tbody, tfoot, thead, tr, th, td {
+         margin: 0;
+         padding: 0;
+         border: 0;
+         outline: 0;
+         font-weight: inherit;
+         font-style: normal;
+         font-size: 100%;
+         font-family: inherit;
+         vertical-align: baseline;
+      }
+      :focus {
+         outline: 0;
+      }
+      body {
+         line-height: 1;
+            color: black;
+      background: white;
+      }
+      ul {
+         list-style: none;
+      }
+         table {
+         border-collapse: collapse;
+         border-spacing: 0;
+      }
+         caption, th, td {
+         text-align: left;
+         font-weight: normal;
+      }
+      blockquote:before, blockquote:after,
+         q:before, q:after {
+         content: "";
+      }
+      blockquote, q {
+         quotes: "" "";
+      }
+
+      /* styles */
+      body {
+         font-family: Verdana,Arial,sans-serif;
+         background: #f0f0f0;
+         color: #333;
+      }
+      #inset {
+         margin: 0 auto;
+         width: 860px;
+      }
+      #container {
+         background-color: #fff;
+         color: #000;
+         padding: 50px 100px;
+      }
+      p, h2 {
+         margin: 20px 0;
+      }
+      p {
+         line-height: 20px;
+      }
+      a {
+      color: #000;
+         text-decoration: none;
+         font-weight: bold;
+      }
+      a:hover {
+         color: #26B3CF;
+      }
+      h1 {
+         /* Hide generated title */
+         display: none;
+      }
+      h1.title {
+         display: block;
+         font-size: 3.8em;
+         margin-bottom: 3px;
+      }
+      h1.title .small {
+         font-size: 0.4em;
+      }
+      h1 a {
+         font-weight: normal;
+      }
+      h2 {
+         font-size: 1.5em;
+      }
+      li {
+         padding-bottom: 10px;
+      }
+      .ribbon {
+         float: right;
+      }
+      .description {
+         font-size: 1.2em;
+         margin-bottom: 30px;
+         margin-top: 30px;
+         font-style: italic;
+      }
+      pre {
+         background: #444;
+         color: #fff;
+         font-family:'Bitstream Vera Sans Mono','Courier',monospace;
+         padding: 15px;
+         -moz-border-radius: 5px;
+         -webkit-border-radius: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="inset">
+      <a href="http://github.com/mattsears/aerial">
+        <img class="ribbon" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
+      </a>
+      <div id="container">
+        <div class="description">
+          Aerial uses Git to store articles and pages.
+        </div>
+        <h1>Aerial</h1>
+        <p>Designed for Ruby developers, there is no admin interface and no SQL database. Articles are written in your favorite text editor and versioned with Git. Comments are also stored as plain-text files and pushed to the remote repository when created. It uses Grit (http://github.com/mojombo/grit) to interface with local and remote Git repositories.</p>
+        <h2>Installation</h2>
+
+        <p>via Rubygems:</p>
+        <pre><code>$ gem install aerial
+$ aerial install /home/user/myblog</code></pre>
+        <p>This will create a couple files and directories. Mainly, the views, public, and configuration files.  You may edit config.yml to your liking</p>
+        <p>The installer provides special configuration files for Thin and Passenger.</p>
+        <p>via Clone:</p>
+        <pre><code>$ git clone git://github.com/mattsears/aerial</code></pre>
+
+        <h2>Pasenger</h2>
+        <pre><code>$ aerial install /home/user/myblog --passenger
+$ cd /home/user/myblog</code></pre>
+        <p>Then, restart Passenger <b>$ touch tmp/restart.txt</b></p>
+        <h2>Thin</h2>
+        <p>Install Thin:</p>
+        <pre><code>$ gem install thin</code></pre>
+        <p>Run the installer:</p>
+        <pre><code>$ aerial install /home/user/myblog --thin
+$ cd /home/user/myblog</code></pre>
+        <p>Tweak the thin.yml</p>
+        <p>Start the thin server</p>
+        <pre><code>$ thin -C thin.yml -R config.ru start</code></pre>
+        <h2>Issues</h2>
+        <p>Find a bug? Want a feature? Submit an <a href="http://github.com/mattsears/aerial/issues">issue here</a>. Patches welcome!
+        </p
+      </div>
+    </div>
+  </body>
+</html>
