@@ -1,8 +1,6 @@
 require 'rubygems'
 require 'spec/version'
 require 'spec/rake/spectask'
-require 'cucumber/rake/task'
-
 require 'git'
 require 'grit'
 # TODO: refactor config file loading in base.rb
@@ -25,49 +23,9 @@ namespace :spec do
   end
 end
 
-desc "Setup the directory structure"
-task :bootstrap do
-  Rake::Task['setup:articles_directory'].invoke
-  Rake::Task['setup:views_directory'].invoke
-  Rake::Task['setup:public_directory'].invoke
-  Rake::Task['run'].invoke
-end
-
-desc 'Run Aerial in development mode'
-task :run do
-  exec "ruby lib/aerial.rb"
-end
-
 desc "Launch Aerial cartwheel"
 task :launch do
   ruby "bin/aerial launch"
-end
-
-namespace :setup do
-
-  desc "Copy over a sample article"
-  task :articles_directory do
-    puts "* Creating article directory in " + Aerial.config.views.dir
-    article_dir = File.join(AERIAL_ROOT, 'lib','spec','fixtures',
-                            'articles', 'congratulations-aerial-is-configured-correctly')
-    FileUtils.mkdir_p(Aerial.config.articles.dir )
-    FileUtils.cp_r(article_dir, Aerial.config.articles.dir )
-    Aerial::Git.commit(Aerial.config.articles.dir, "Initial import of first article")
-  end
-
-  task :public_directory do
-    puts "* Creating public directory in " + Aerial.config.public.dir
-    FileUtils.cp_r(File.join(AERIAL_ROOT, 'lib', 'spec',
-                             'fixtures', 'public'),
-                   Aerial.config.public.dir )
-  end
-
-  task :views_directory do
-    puts "* Creating views directory in " + Aerial.config.views.dir
-    FileUtils.cp_r(File.join(AERIAL_ROOT, 'lib', 'spec',
-                             'fixtures',  'views'),
-                   Aerial.config.views.dir )
-  end
 end
 
 # Cucumber setup
@@ -89,6 +47,12 @@ task :gem => [ :gemspec, :build ] do
   sh command
 end
 
+desc "Build a gem"
+task :rdoc do
+  sh 'mkdir rdoc'
+  sh 'echo documentation is at http://github.com/mattsears/aerial > rdoc/README.rdoc'
+end
+
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gemspec|
@@ -99,8 +63,14 @@ begin
     gemspec.homepage = "http://github.com/mattsears/aerial"
     gemspec.description = "A simple, blogish software build with Sinatra, jQuery, and uses Git for data storage"
     gemspec.authors = ["Matt Sears"]
+    gemspec.rubyforge_project = 'aerial'
+  end
+  Jeweler::RubyforgeTasks.new do |rubyforge|
+    rubyforge.doc_task = "rdoc"
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler not available. Install it with: sudo gem install technicalpickles-jeweler -s http://gems.github.com"
 end
+
+
