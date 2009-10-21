@@ -28,11 +28,6 @@ task :launch do
   ruby "bin/aerial launch"
 end
 
-# Cucumber setup
-Cucumber::Rake::Task.new(:features) do |t|
-  t.cucumber_opts = "--format pretty"
-end
-
 # Vlad setup
 begin
   require "vlad"
