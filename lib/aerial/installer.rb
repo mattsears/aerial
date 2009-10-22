@@ -24,7 +24,8 @@ module Aerial
     def launch
       @root = Pathname(".").expand_path
       require "thin"
-      Aerial.new(@root, "/config.yml")
+      Aerial.new(@root, "/config/config.yml")
+      Aerial::App.set :root, @root
       Thin::Server.start("0.0.0.0", options[:port], Aerial::App)
     rescue LoadError => boom
       missing_dependency = boom.message.split("--").last.lstrip
