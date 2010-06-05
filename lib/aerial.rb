@@ -1,3 +1,4 @@
+require 'yaml'
 libdir = File.dirname(__FILE__)
 $LOAD_PATH.unshift(libdir) unless $LOAD_PATH.include?(libdir)
 AERIAL_ROOT = File.join(File.dirname(__FILE__), '..') unless defined? AERIAL_ROOT
@@ -6,7 +7,6 @@ CONFIG = YAML.load_file( File.join(AERIAL_ROOT, 'config', 'config.yml') ) unless
 # System requirements
 require 'rubygems'
 require 'grit'
-require 'yaml'
 require 'sinatra'
 require 'haml'
 require 'sass'
