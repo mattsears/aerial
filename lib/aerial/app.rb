@@ -1,5 +1,5 @@
 module Aerial
-  class App < Sinatra::Default
+  class App < Sinatra::Base
     include Aerial
 
     before do
