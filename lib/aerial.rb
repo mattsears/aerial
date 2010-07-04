@@ -24,7 +24,7 @@ module Aerial
 
   # Make sure git is added to the env path
   ENV['PATH'] = "#{ENV['PATH']}:/usr/local/bin"
-  VERSION = '0.1.0'
+  VERSION = '0.1.1'
 
   class << self
     attr_accessor :debug, :logger, :repo, :config
