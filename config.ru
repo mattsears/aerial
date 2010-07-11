@@ -3,7 +3,7 @@ require "rubygems"
 require File.join(File.dirname('.'), "lib", "aerial.rb")
 
 env  = ENV['RACK_ENV'].to_sym if ENV['RACK_ENV']
-root = File.dirname(__FILE__)
+root = File.expand_path(File.dirname(__FILE__))
 
 # Load configuration and initialize Aerial
 Aerial.new(root, "/config/config.yml")
