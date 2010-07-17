@@ -2,3 +2,4 @@ spec/repo
 coverage
 content
 pkg
+tmp/
