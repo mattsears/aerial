@@ -35,7 +35,6 @@ module Aerial
     @root   ||= root
     @logger ||= ::Logger.new(STDOUT)
     @debug  ||= false
-    return
     @repo   ||= Grit::Repo.new(@root)
     config  = File.join(root, config_name)
 
