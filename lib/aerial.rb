@@ -24,25 +24,29 @@ module Aerial
 
   # Make sure git is added to the env path
   ENV['PATH'] = "#{ENV['PATH']}:/usr/local/bin"
-  VERSION = '0.1.1'
+  VERSION = '0.1.2'
 
   class << self
     attr_accessor :debug, :logger, :repo, :config
   end
 
   def self.new(root, config_name = nil)
-
     @root   ||= root
     @logger ||= ::Logger.new(STDOUT)
     @debug  ||= false
-    @repo   ||= Grit::Repo.new(@root)
-    config  = File.join(root, config_name)
 
-    if config.is_a?(String) && File.file?(config)
-      @config = Aerial::Config.new(YAML.load_file(config))
-    elsif config.is_a?(Hash)
-      @config = Aerial::Config.new(config)
+    begin
+      @repo   ||= Grit::Repo.new(@root)
+      config  = File.join(root, config_name)
+      if config.is_a?(String) && File.file?(config)
+        @config = Aerial::Config.new(YAML.load_file(config))
+      elsif config.is_a?(Hash)
+        @config = Aerial::Config.new(config)
+      end
+    rescue Exception => e
+      # TODO: Display an error
     end
+
   end
 
   def self.log(str)

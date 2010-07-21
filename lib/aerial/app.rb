@@ -73,7 +73,6 @@ module Aerial
     post '/article/:id/comments' do
       @article = Aerial::Article.find(params[:id])
       throw :halt, [404, not_found ] unless @article
-
       comment = Aerial::Comment.new(params.merge!({:referrer    => request.referrer,
                                                    :user_agent  => request.user_agent,
                                                    :ip          => request.ip
