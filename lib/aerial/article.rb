@@ -2,8 +2,8 @@ module Aerial
 
   class Article < Content
 
-    attr_reader :comments, :id,         :tags,      :archive_name, :body_html,
-                :meta,     :updated_on, :publish_date, :file_name
+    attr_reader :id,   :tags,       :archive_name, :body_html,
+                :meta, :updated_on, :publish_date, :file_name
 
     # =============================================================================================
     # PUBLIC CLASS METHODS
@@ -76,12 +76,6 @@ module Aerial
     # =============================================================================================
     # PUBLIC INSTANCE METHODS
     # =============================================================================================
-
-    # Add a comment to the list of this Article's comments
-    #  +comment new comment
-    def add_comment(comment)
-      self.comments << comment.save(self.archive_name) # TODO: should we overload the << method?
-    end
 
     # Make a permanent link for the article
     def permalink
@@ -192,18 +186,15 @@ module Aerial
     #   +tree+ repository tree
     #   +options+ :blob_id
     def self.find_article(tree, options = {})
-      comments = []
       attributes = nil
       tree.contents.each do |archive|
         if archive.name =~ /article/
           attributes = self.extract_article(archive, options)
           attributes[:archive_name] = tree.name
           attributes[:file_name] = archive.name
-        elsif archive.name =~ /comment/
-          comments << Comment.open(archive.data, :file_name => archive.name)
         end
       end
-      return Article.new(attributes.merge(:comments => comments)) if attributes
+      return Article.new(attributes) if attributes
     end
 
     # Find all the tags assign to the articles

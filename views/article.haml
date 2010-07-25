@@ -3,8 +3,6 @@
   %h2
     %a{:href => article.permalink}
       =article.title
-    %span
-      =article.comments.size
   %h3
     ="Posted by #{article.author} on #{humanized_date article.publish_date}"
   %p.entry
@@ -16,4 +14,6 @@
     %br/
     %span
       Meta:
-    ="#{article.comments.size} comments, <a href='#{article.permalink}' rel='permalink'>permalink</a>"
+    %a{:href => "#{article.permalink}", :rel => 'permalink'}
+      permalink
+

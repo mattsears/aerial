@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{aerial}
-  s.version = "0.1.1"
+  s.version = "0.1.2.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matt Sears"]
@@ -52,10 +52,10 @@ Gem::Specification.new do |s|
      "features/support/env.rb",
      "features/support/pages/article.rb",
      "features/support/pages/homepage.rb",
-     "index.html",
      "lib/aerial.rb",
      "lib/aerial/app.rb",
      "lib/aerial/article.rb",
+     "lib/aerial/build.rb",
      "lib/aerial/base.rb",
      "lib/aerial/comment.rb",
      "lib/aerial/config.rb",

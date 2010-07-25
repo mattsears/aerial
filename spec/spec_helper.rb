@@ -97,8 +97,8 @@ end
 include GitHelper
 
 Spec::Runner.configure do |config|
+  require 'yaml'
   repo_path = new_git_repo
-
   CONFIG = YAML.load_file( File.join(File.dirname(__FILE__), 'fixtures', 'config.yml') ) unless defined?(CONFIG)
   AERIAL_ROOT = File.join(File.dirname(__FILE__), 'repo') unless defined?(AERIAL_ROOT)
 
@@ -125,5 +125,4 @@ def setup_repo
   @config_path = File.join(@repo_path, "config")
   Aerial.stub!(:repo).and_return(Grit::Repo.new(@repo_path))
   Aerial.new(@repo_path, "config.yml")
-
 end

@@ -2,10 +2,9 @@ require "thor"
 require File.dirname(__FILE__) + "/../aerial"
 
 module Aerial
-
   class Build < Thor
     attr_reader :root
-    include FileUtils
+    #include FileUtils
     include Thor::Actions
 
     desc "build", "Build alls static files."
@@ -16,6 +15,7 @@ module Aerial
       @site_path = "#{@root}/public/site"
       Aerial.new(@root, "/config/config.yml")
       Aerial::App.set :root, @root
+
       @articles = Aerial::Article.all
       @request = Rack::MockRequest.new(Aerial::App)
       build_style_css
@@ -35,11 +35,9 @@ module Aerial
 
     desc "build_html", "Build all html files."
     def build_pages_html
-
       create_file "#{@site_path}/index.html" do
-        @request.request('get', '/').body
+       @request.request('get', '/').body
       end
-
       create_file "#{@site_path}/articles.html" do
         @request.request('get', '/articles').body
       end

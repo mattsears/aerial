@@ -14,9 +14,6 @@ require 'rdiscount'
 require 'aerial/base'
 require 'aerial/content'
 require 'aerial/article'
-require 'aerial/comment'
-require 'aerial/vendor/cache'
-require 'aerial/vendor/akismetor'
 require 'aerial/config'
 require 'aerial/app'
 
@@ -24,7 +21,7 @@ module Aerial
 
   # Make sure git is added to the env path
   ENV['PATH'] = "#{ENV['PATH']}:/usr/local/bin"
-  VERSION = '0.1.2'
+  VERSION = '0.2.0'
 
   class << self
     attr_accessor :debug, :logger, :repo, :config
@@ -34,19 +31,13 @@ module Aerial
     @root   ||= root
     @logger ||= ::Logger.new(STDOUT)
     @debug  ||= false
-
-    begin
-      @repo   ||= Grit::Repo.new(@root)
-      config  = File.join(root, config_name)
-      if config.is_a?(String) && File.file?(config)
-        @config = Aerial::Config.new(YAML.load_file(config))
-      elsif config.is_a?(Hash)
-        @config = Aerial::Config.new(config)
-      end
-    rescue Exception => e
-      # TODO: Display an error
+    @repo   ||= Grit::Repo.new(@root) rescue nil
+    config  = File.join(root, config_name)
+    if config.is_a?(String) && File.file?(config)
+      @config = Aerial::Config.new(YAML.load_file(config))
+    elsif config.is_a?(Hash)
+      @config = Aerial::Config.new(config)
     end
-
   end
 
   def self.log(str)

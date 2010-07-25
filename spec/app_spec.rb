@@ -49,7 +49,6 @@ describe 'main app application' do
       @article = Article.new(:title        => "Test Article",
                              :tags         => "git, sinatra",
                              :publish_date => DateTime.new,
-                             :comments     => [],
                              :file_name    => "test-article")
       Aerial::Article.stub!(:with_tag).and_return([@article])
       get '/tags/git'
@@ -143,7 +142,6 @@ describe 'main app application' do
                              :body         => "Test Content",
                              :id           => 333,
                              :publish_date => DateTime.new,
-                             :comments     => [],
                              :file_name    => "test-article.article")
       Aerial::Article.stub!(:with_date).and_return([@article])
       get '/archives/year/month'
@@ -153,25 +151,6 @@ describe 'main app application' do
       last_response.status.should == 200
     end
 
-  end
-
-  describe "posting a new comment" do
-
-    before do
-      @article = Article.new(:title     => "Test Article",
-                             :body      => "Test Content",
-                             :file_name => "test-article",
-                             :archive_name => "test-article",
-                             :id        => 333)
-      Aerial::Article.stub!(:find).and_return(@article)
-      @article.stub!(:comments).and_return(Array.new)
-      @article.stub!(:permalink).and_return('/permalink')
-      post "/article/#{@article.id}/comments"
-    end
-
-    it "should return a valid response" do
-      last_response.status.should == 204
-    end
   end
 
   describe "calling Git operations" do

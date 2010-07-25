@@ -168,12 +168,6 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
       @articles.size.should == 5
     end
 
-    it "should contain a comments array even if empty" do
-      @articles.each do |article|
-        article.comments.should_not be_nil
-      end
-    end
-
     after do
       @articles = nil
     end
@@ -259,26 +253,6 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
 
   end
 
-  describe "calling Article.comments" do
-
-    before(:each) do
-      @article_two = Article.with_name("test-article-two")
-    end
-
-    it "should not be nil" do
-      @article_two.should_not be_nil
-    end
-
-    it "should have comments attached to the article" do
-      @article_two.comments.size.should == 2
-    end
-
-    it "should have a valid comment" do
-      @article_two.comments.first.author.should == "Anonymous Coward"
-    end
-
-  end
-
   describe "calling Article.recent" do
 
     before(:each) do
@@ -307,30 +281,6 @@ tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam"
 
     it "should return a list of 4 tag strings" do
       @tags.size.should == 4
-    end
-
-  end
-
-  describe "adding comments to an Article" do
-
-    before(:each) do
-      @article = Article.with_name("test-article-one")
-      @comment = Comment.new(:author       => "Matt Sears",
-                             :body         => "Comment content",
-                             :email        => "matt@mattsears.com",
-                             :publish_date => Date.today,
-                             :homepage     => "http://example.com")
-    end
-
-    it "should add a new comment with no errors" do
-      @article.add_comment(@comment).should_not be_nil
-    end
-
-    it "should increase the size of the Article's comments" do
-      @article.comments.should be_empty
-      @article.add_comment(@comment)
-      retrieve_article = Article.with_name("test-article-one")
-      retrieve_article.comments.size.should == 1
     end
 
   end
