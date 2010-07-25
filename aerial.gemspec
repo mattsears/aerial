@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{aerial}
-  s.version = "0.1.2.2"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Matt Sears"]
@@ -45,29 +45,18 @@ Gem::Specification.new do |s|
      "examples/views/rss.haml",
      "examples/views/sidebar.haml",
      "examples/views/style.sass",
-     "features/article.feature",
-     "features/home.feature",
-     "features/step_definitions/article_steps.rb",
-     "features/step_definitions/home_steps.rb",
-     "features/support/env.rb",
-     "features/support/pages/article.rb",
-     "features/support/pages/homepage.rb",
      "lib/aerial.rb",
      "lib/aerial/app.rb",
      "lib/aerial/article.rb",
      "lib/aerial/build.rb",
      "lib/aerial/base.rb",
-     "lib/aerial/comment.rb",
      "lib/aerial/config.rb",
      "lib/aerial/content.rb",
      "lib/aerial/installer.rb",
-     "lib/aerial/vendor/akismetor.rb",
-     "lib/aerial/vendor/cache.rb",
      "spec/aerial_spec.rb",
      "spec/app_spec.rb",
      "spec/article_spec.rb",
      "spec/base_spec.rb",
-     "spec/comment_spec.rb",
      "spec/config_spec.rb",
      "spec/fixtures/articles/congratulations-aerial-is-configured-correctly/congratulations-aerial-is-configured-correctly.article",
      "spec/fixtures/articles/sample-article/sample-article.article",
@@ -82,7 +71,6 @@ Gem::Specification.new do |s|
      "spec/fixtures/public/javascripts/jquery.template.js",
      "spec/fixtures/views/article.haml",
      "spec/fixtures/views/articles.haml",
-     "spec/fixtures/views/comment.haml",
      "spec/fixtures/views/home.haml",
      "spec/fixtures/views/layout.haml",
      "spec/fixtures/views/not_found.haml",
@@ -97,13 +85,12 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{aerial}
   s.rubygems_version = %q{1.3.5}
-  s.summary = %q{A simple, blogish software build with Sinatra, jQuery, and uses Git for data storage}
+  s.summary = %q{A simple, blogish software build with Sinatra and uses Git for data storage}
   s.test_files = [
     "spec/aerial_spec.rb",
      "spec/app_spec.rb",
      "spec/article_spec.rb",
      "spec/base_spec.rb",
-     "spec/comment_spec.rb",
      "spec/config_spec.rb",
      "spec/spec_helper.rb"
   ]
