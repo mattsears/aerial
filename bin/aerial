@@ -3,5 +3,5 @@ $LOAD_PATH << File.join(File.dirname(__FILE__), '..')
 require 'rubygems'
 require File.dirname(__FILE__) + "/../lib/aerial/installer"
 require File.dirname(__FILE__) + "/../lib/aerial/build"
-#Aerial::Installer.start
+Aerial::Installer.start
 Aerial::Build.start

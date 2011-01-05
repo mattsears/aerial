@@ -15,7 +15,8 @@ require 'aerial/base'
 require 'aerial/content'
 require 'aerial/article'
 require 'aerial/config'
-require 'aerial/app'
+require 'aerial/migrator'
+require 'aerial/site'
 
 module Aerial
 
@@ -24,7 +25,7 @@ module Aerial
   VERSION = '0.2.0'
 
   class << self
-    attr_accessor :debug, :logger, :repo, :config
+    attr_accessor :debug, :logger, :repo, :config, :root
   end
 
   def self.new(root, config_name = nil)
@@ -32,12 +33,15 @@ module Aerial
     @logger ||= ::Logger.new(STDOUT)
     @debug  ||= false
     @repo   ||= Grit::Repo.new(@root) rescue nil
+
     config  = File.join(root, config_name)
     if config.is_a?(String) && File.file?(config)
       @config = Aerial::Config.new(YAML.load_file(config))
     elsif config.is_a?(Hash)
       @config = Aerial::Config.new(config)
     end
+    require 'aerial/app'
+    return self
   end
 
   def self.log(str)
