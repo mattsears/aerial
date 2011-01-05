@@ -1,4 +1,4 @@
-require 'coderay'
+#require 'coderay'
 require 'date'
 
 module Aerial
@@ -22,12 +22,16 @@ module Aerial
       attributes                = Hash.new
       header, body = content.split(/\n\n/, 2)
       attributes[:body] = body.strip if body
-      header.each do |line|
+
+      header.each_line do |line|
         field, data = line.split(/:/, 2)
         field = field.downcase.strip.gsub(' ', '_').gsub('-', '_')
         attributes[field.to_sym] = data.to_s.strip
+        begin
+          attributes[:publish_date] = DateTime.parse(attributes[:publish_date])
+        rescue
+        end
       end
-      attributes[:publish_date] = DateTime.parse(attributes[:publish_date]) if attributes[:publish_date]
       return attributes
     end
 
