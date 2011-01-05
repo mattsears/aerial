@@ -14,17 +14,19 @@ module Aerial
       alias_method :h, :escape_html
     end
 
+    require File.expand_path(File.join(Aerial.root, 'app'))
+    # Aerial::Overrides.load_local_app
+
     # Homepage
     get '/' do
-      @articles = Aerial::Article.recent(:limit => 10)
+      @articles = Aerial::Article.recent(:limit => 5)
       haml(Aerial.config.views.default.to_sym)
     end
 
     # Articles
-    get '/articles' do
-      @content_for_sidebar = partial(:sidebar)
-      @articles = Aerial::Article.recent(:limit => 10)
-      haml(:articles)
+    get "/#{Aerial.config.articles.dir}" do
+      @articles = Aerial::Article.recent(:limit => 5)
+      haml(:"#{Aerial.config.articles.dir}")
     end
 
     get '/feed*' do
@@ -39,38 +41,37 @@ module Aerial
       sass(:style)
     end
 
-    # Single page
-    get '/:page' do
-      haml(params[:page])
-    end
-
     # Single article page
-    get '/:year/:month/:day/:article' do
-      link = [params[:year], params[:month], params[:day], params[:article]].join("/")
-      @content_for_sidebar = partial(:sidebar)
-      @article = Aerial::Article.with_permalink("/#{link}")
+    get "/#{Aerial.config.articles.dir}/:year/:month/:day/:article" do
+      link = [Aerial.config.articles.dir, params[:year], params[:month], params[:day], params[:article]].join("/")
+      @article = Aerial::Article.with_permalink("#{link}")
       throw :halt, [404, not_found ] unless @article
       @page_title = @article.title
-      haml(:post)
+      haml(:"#{Aerial.config.articles.dir}/post")
     end
 
     # Article tags
-    get '/tags/:tag' do
-      @content_for_sidebar = partial(:sidebar)
+    get "/#{Aerial.config.articles.dir}/tags/:tag" do
       @articles = Aerial::Article.with_tag(params[:tag])
-      haml(:articles)
+      haml(:"#{Aerial.config.articles.dir}")
     end
 
     # Article archives
-    get '/archives/:year/:month' do
-      @content_for_sidebar = partial(:sidebar)
+    get "/#{Aerial.config.articles.dir}/archives/:year/:month" do
       @articles = Aerial::Article.with_date(params[:year], params[:month])
-      haml(:articles)
+      haml(:"#{Aerial.config.articles.dir}")
     end
 
     not_found do
-      @content_for_sidebar = partial(:sidebar)
       haml(:not_found)
+    end
+
+    # Try to find some kind of page
+    get "*" do
+      parts = params[:splat].map{ |p| p.sub(/\//, "") }
+      page = File.expand_path(File.join(Aerial.root, 'views', parts))
+      raise Sinatra::NotFound unless File.exist?("#{page}.haml")
+      haml(parts.join('/').to_sym)
     end
 
   end
