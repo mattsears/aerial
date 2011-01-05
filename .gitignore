@@ -3,3 +3,4 @@ coverage
 content
 pkg
 tmp/
+.rvmrc
