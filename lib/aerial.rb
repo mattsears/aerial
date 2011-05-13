@@ -11,6 +11,7 @@ require 'sinatra'
 require 'haml'
 require 'sass'
 require 'rdiscount'
+require 'html_truncator'
 require 'aerial/base'
 require 'aerial/content'
 require 'aerial/article'
@@ -22,24 +23,18 @@ module Aerial
 
   # Make sure git is added to the env path
   ENV['PATH'] = "#{ENV['PATH']}:/usr/local/bin"
-  VERSION = '0.2.0'
 
   class << self
-    attr_accessor :debug, :logger, :repo, :config, :root
+    attr_accessor :debug, :logger, :repo, :config, :root, :env
   end
 
-  def self.new(root, config_name = nil)
-    @root   ||= root
+  def self.new(overrides, env = :development)
+    @root   ||= Dir.pwd
     @logger ||= ::Logger.new(STDOUT)
     @debug  ||= false
     @repo   ||= Grit::Repo.new(@root) rescue nil
-
-    config  = File.join(root, config_name)
-    if config.is_a?(String) && File.file?(config)
-      @config = Aerial::Config.new(YAML.load_file(config))
-    elsif config.is_a?(Hash)
-      @config = Aerial::Config.new(config)
-    end
+    @env    = env
+    @config = Aerial::Config.new(overrides)
     require 'aerial/app'
     return self
   end

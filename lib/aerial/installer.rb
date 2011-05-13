@@ -21,13 +21,12 @@ module Aerial
     end
 
     desc "launch [CONFIG]", "Launch Aerial cartwheel."
-    method_options :config => :optional, :port => 3000
+    method_options :config => 'config.yml', :env => :development
     def server
       require 'thin'
-      @root = Pathname(".").expand_path
-      Aerial.new(@root, "/config.yml")
-      Aerial::App.set :root, @root
-      Thin::Server.start("0.0.0.0", options[:port], Aerial::App)
+      Aerial.new(options, options[:env] || :development)
+      Aerial::App.set :root, Aerial.root
+      Thin::Server.start("0.0.0.0", Aerial.config.server_port, Aerial::App)
     rescue LoadError => boom
       missing_dependency = boom.message.split("--").last.lstrip
       puts "Please install #{missing_dependency} to launch Aerial"

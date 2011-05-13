@@ -71,29 +71,12 @@ module Aerial
 
     # Truncate a string
     def blurb(text, options ={})
-      options.merge!(:length => 160, :omission => "...")
-      if text
-        l = options[:length] - options[:omission].length
-        chars = text
-        (chars.length > options[:length] ? chars[0...l] + options[:omission] : text).to_s
-      end
+      return if text.nil?
+      options.merge!(:length => 22, :omission => "...")
+      HTML_Truncator.truncate( RDiscount::new(text).to_html, options[:length], options[:omission])
     end
 
     # Handy method to render partials including collections
-    # def partial(template, options = {})
-    #   options.merge!(:layout => false)
-    #   return if options.has_key?(:collection) && options[:collection].nil?
-
-    #   if collection = options.delete(:collection) then
-    #     collection.inject([]) do |buffer, member|
-    #       buffer << haml(template, options.merge(:layout => false,
-    #                                              :locals => {template.to_sym => member}))
-    #     end.join("\n")
-    #   else
-    #      haml(template, options)
-    #   end
-    # end
-
     def partial(template, *args)
       template_array = template.to_s.split('/')
       template = template_array[0..-2].join('/') + "/_#{template_array[-1]}"
@@ -175,5 +158,28 @@ end
 class Object
   def blank?
     respond_to?(:empty?) ? empty? : !self
+  end
+end
+
+class Hash
+  # Merges self with another hash, recursively.
+  #
+  # This code was lovingly stolen from some random gem:
+  # http://gemjack.com/gems/tartan-0.1.1/classes/Hash.html
+  #
+  # Thanks to whoever made it.
+  def deep_merge(hash)
+    target = dup
+
+    hash.keys.each do |key|
+      if hash[key].is_a? Hash and self[key].is_a? Hash
+        target[key] = target[key].deep_merge(hash[key])
+        next
+      end
+
+      target[key] = hash[key]
+    end
+
+    target
   end
 end

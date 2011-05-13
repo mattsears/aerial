@@ -1,5 +1,4 @@
 module Aerial
-
   class Site
 
     attr_accessor :config, :exclude
@@ -7,6 +6,18 @@ module Aerial
     def initialize
       self.config  = Aerial.config
       self.exclude = ['blog', 'post', 'layout', 'not_found', 'rss', 'style']
+    end
+
+    # Public: Loads a local Sinatra app if exists.
+    #
+    # name    - The String file name of the app.
+    #           Traditionally it's called "app.rb".
+    #
+    # Returns Boolean if app exists and loads.
+    #
+    def self.include_local_app(name = 'app')
+      require File.expand_path(File.join(Aerial.root, name))
+    rescue LoadError
     end
 
     def process!
@@ -30,5 +41,4 @@ module Aerial
     end
 
   end
-
 end

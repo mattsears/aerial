@@ -1,3 +1,11 @@
+require 'sequel'
+require 'sequel/extensions/inflector'
+require 'sequel/extensions/string_date_time'
+require 'fileutils'
+require 'yaml'
+require 'aerial/migrators/mephisto'
+require 'mcbean'
+
 module Aerial
   module Mephisto
     ARTICLES = "SELECT id, user_id, title, permalink, body, published_at FROM contents

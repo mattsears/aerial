@@ -7,6 +7,8 @@ module Aerial
       request.env['PATH_INFO'].gsub!(/\/$/, '') if request.env['PATH_INFO'] != '/'
     end
 
+    set :environment, Aerial.env
+
     # Helpers
     helpers do
       include Rack::Utils
@@ -14,8 +16,7 @@ module Aerial
       alias_method :h, :escape_html
     end
 
-    require File.expand_path(File.join(Aerial.root, 'app'))
-    # Aerial::Overrides.load_local_app
+    Aerial::Site.include_local_app
 
     # Homepage
     get '/' do
@@ -47,7 +48,8 @@ module Aerial
       @article = Aerial::Article.with_permalink("#{link}")
       throw :halt, [404, not_found ] unless @article
       @page_title = @article.title
-      haml(:"#{Aerial.config.articles.dir}/post")
+      # haml(:post)
+      haml(:"#{Aerial.config.articles.dir}")
     end
 
     # Article tags

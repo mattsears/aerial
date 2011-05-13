@@ -1,11 +1,3 @@
-require 'sequel'
-require 'sequel/extensions/inflector'
-require 'sequel/extensions/string_date_time'
-require 'fileutils'
-require 'yaml'
-require 'aerial/migrators/mephisto'
-require 'mcbean'
-
 module Aerial
   class Migrator
 
@@ -13,6 +5,18 @@ module Aerial
       attr_accessor :provider, :dbname, :user, :pass, :host
     end
 
+    # Public: Create a new Migrator instance.
+    #
+    # options - A Hash of options (default: {}):
+    #           :provider - String the blog or service that provides the content
+    #
+    # Examples
+    #
+    #   m = Aerial::Migrator.new({:provider => 'mephisto'})
+    #
+    # Returns a newly initialized Grit::Migrator.
+    # Raises NameError if the migrator does not exist.
+    #
     def initialize(options = {})
       @provider = options['articles']['provider']
       @dbname = options['articles']['dbname']
@@ -23,9 +27,10 @@ module Aerial
 
     def process!
       migrator = eval("Aerial::#{@provider.classify}")
+      require 'aerial/migrators/#{migrator}'
       migrator.import(@dbname, @user, @pass, @host)
-    #rescue NameError
-    #  puts "Oh sorry, #{@provider} isn't supported by Aerial"
+    rescue NameError
+      puts "Oh sorry, #{@provider} isn't supported by Aerial"
     end
 
   end
