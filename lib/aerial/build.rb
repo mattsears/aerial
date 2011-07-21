@@ -68,7 +68,7 @@ module Aerial
     def build_tags_html
       Aerial::Article.tags.each do |tag|
         create_file "#{@blog_path}/tags/#{tag}.html", :force => true do
-          @request.request('get', "/tags/#{tag}").body
+          @request.request('get', "#{Aerial.config.articles.dir}/tags/#{tag}").body
         end
       end
     end
@@ -76,7 +76,7 @@ module Aerial
     def build_archives_html
       Aerial::Article.archives.each do |archive|
         create_file "#{@blog_path}/archives/#{archive.first.first}.html", :force => true do
-          @request.request('get', "/archives/#{archive.first.first}").body
+          @request.request('get', "#{Aerial.config.articles.dir}/archives/#{archive.first.first}").body
         end
       end
     end
