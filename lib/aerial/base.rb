@@ -1,3 +1,5 @@
+require "html_truncator"
+
 module Aerial
 
   module Helper
@@ -73,7 +75,8 @@ module Aerial
     def blurb(text, options ={})
       return if text.nil?
       options.merge!(:length => 22, :omission => "...")
-      HTML_Truncator.truncate( RDiscount::new(text).to_html, options[:length], options[:omission])
+      HTML_Truncator.truncate("<p>#{RDiscount::new(text).to_html}</p>",
+        options[:length], :ellipsis => options[:omission])
     end
 
     # Handy method to render partials including collections
