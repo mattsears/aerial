@@ -43,7 +43,7 @@ module Aerial
     end
 
     # Single article page
-    get "/#{Aerial.config.articles.dir}/:year/:month/:day/:article" do
+    get "/*/:year/:month/:day/:article" do
       link = [Aerial.config.articles.dir, params[:year], params[:month], params[:day], params[:article]].join("/")
       @article = Aerial::Article.with_permalink("#{link}")
       throw :halt, [404, not_found ] unless @article
