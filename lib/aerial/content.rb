@@ -42,7 +42,7 @@ module Aerial
       doc.search("//pre[@lang]").each do |pre|
         pre.replace Albino.colorize(pre.text.rstrip, pre[:lang])
       end
-      doc.to_s
+      doc.css('body/*').to_s
     end
 
     # =============================================================================================
