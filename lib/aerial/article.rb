@@ -222,7 +222,8 @@ module Aerial
       article                = self.extract_attributes(blob.data)
       article[:id]           = blob.id
       article[:tags]         = article[:tags].split(/, /)
-      article[:body_html]    = RDiscount::new(article[:body]).to_html
+      options = [:filter_html, :autolink, :no_intraemphasis, :fenced_code, :gh_blockcode]
+      article[:body_html]    = self.colorize(Redcarpet.new(article[:body], *options).to_html)
       return article
     end
 

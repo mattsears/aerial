@@ -35,17 +35,14 @@ module Aerial
       return attributes
     end
 
-    # Look for <code> blocks and convert it for syntax highlighting
-    def self.parse_coderay(text)
-      text.scan(/(\<code>(.+?)\<\/code>)/m).each do |match|
-         match[1] = match[1].gsub("<br>", "\n").
-           gsub("&amp;nbsp;", " ").
-           gsub("&amp;lt;", "<").
-           gsub("&amp;gt;", ">").
-           gsub("&amp;quot;", '"')
-        text.gsub!(match[0], CodeRay.scan(match[1].strip, :ruby).div(:line_numbers => :table, :css => :class))
+    # With help from Albino and Nokogiri, look for the pre tags and colorize
+    # any code blocks we find.
+    def self.colorize(html)
+      doc = Nokogiri::HTML(html)
+      doc.search("//pre[@lang]").each do |pre|
+        pre.replace Albino.colorize(pre.text.rstrip, pre[:lang])
       end
-      return text
+      doc.to_s
     end
 
     # =============================================================================================

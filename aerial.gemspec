@@ -19,7 +19,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'thin'
   s.add_dependency 'sinatra'
   s.add_dependency 'haml'
-  s.add_dependency 'rdiscount'
+  s.add_dependency 'redcarpet'
+  s.add_dependency 'albino'
+  s.add_dependency 'nokogiri'
   s.add_dependency 'html_truncator'
 
   s.rubyforge_project = "aerial"
