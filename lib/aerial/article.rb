@@ -176,7 +176,9 @@ module Aerial
       if blog = Aerial.repo.tree/"#{Aerial.config.articles.dir}/"
         blog.contents.first( options[:limit] || 100 ).each do |entry|
           article = self.find_article(entry, options)
-          articles << self.find_article(entry, options) if article
+          if article && article.publish_date < DateTime.now
+            articles << self.find_article(entry, options)
+          end
         end
       end
       return articles.sort_by { |article| article.publish_date}.reverse
