@@ -224,7 +224,7 @@ module Aerial
       article                = self.extract_attributes(blob.data)
       article[:id]           = blob.id
       article[:tags]         = article[:tags].split(/, /)
-      options = [:autolink, :no_intraemphasis, :fenced_code, :gh_blockcode]
+      options = [:autolink, :no_intraemphasis, :fenced_code, :gh_blockcode, :tables]
       article[:body_html]    = self.colorize(Redcarpet.new(article[:body], *options).to_html)
       return article
     end
